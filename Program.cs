@@ -17,13 +17,13 @@ while (running)
     Console.WriteLine("2.Login");
     Console.WriteLine("3.Exit");
     Console.WriteLine(" ");
-    Console.WriteLine("");
 
     string choice = Console.ReadLine();
 
     switch (choice)
     {
       case "1":
+       
         Console.WriteLine("Email: ");
         string email = Console.ReadLine();
         Console.WriteLine("Password: ");
@@ -31,9 +31,9 @@ while (running)
 
         users.Add(new User(email, password));
         Console.WriteLine("User registered with email: " + email);
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
 
+        Console.WriteLine("Press enter to continue...");
+        Console.ReadLine();
         break;
 
       case "2":
@@ -61,7 +61,7 @@ while (running)
           Console.WriteLine("Invalid credentials.");
         }
 
-        Console.WriteLine("Press Enter to continue...");
+        Console.WriteLine("Press enter to continue...");
         Console.ReadLine();
         break;
 
@@ -74,9 +74,9 @@ while (running)
       default:
 
         Console.WriteLine("Invalid choice.");
+
         Console.WriteLine("Press enter to continue...");
         Console.ReadLine();
-
         break;
 
     }
@@ -84,25 +84,61 @@ while (running)
   else
   {
     Console.WriteLine("Logged in as:" + activeUser.Email);
-    Console.WriteLine("1.Logout");
-    Console.WriteLine("2.Exit");
+    Console.WriteLine("1.Add Item");
+    Console.WriteLine("2.Items description");
+    Console.WriteLine("3.Request Trade");
+    Console.WriteLine("4.Browes Trades");
+    Console.WriteLine("5.Logout");
+    Console.WriteLine("6.Exit");
     Console.WriteLine(" ");
 
     string choice = Console.ReadLine();
 
     switch (choice)
     {
-      case "1":
+      case"1":
+
+        Console.WriteLine("Item name: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Description: ");
+        string description = Console.ReadLine();
+
+        items.Add(new Item(name, description, activeUser));
+        Console.WriteLine("Item Added!");
+
+        Console.WriteLine("Press enter to continue...");
+        Console.ReadLine();
+        break;
+
+      case "2":
+
+        Console.WriteLine("...Items...");
+        foreach (Item item in items)
+        {
+          Console.WriteLine(item.ShowInfo());
+        }
+
+        Console.WriteLine("Press enter to continue...");
+        Console.ReadLine();
+        break;
+
+      case "3":
+        break;
+        
+      case "4":
+        break;
+
+      case "5":
 
         activeUser.Logout();
         Console.WriteLine("You logged out.");
         activeUser = null;
-        Console.WriteLine("Press Enter to continue...");
-        Console.ReadLine();
 
+        Console.WriteLine("Press enter to continue...");
+        Console.ReadLine();
         break;
 
-      case "2":
+      case "6":
 
         running = false;
 
@@ -111,9 +147,9 @@ while (running)
       default:
 
         Console.WriteLine("Invalid choice.");
+
         Console.WriteLine("Press enter to continue...");
         Console.ReadLine();
-
         break;
     }
   }

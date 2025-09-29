@@ -4,22 +4,22 @@ class Item
 {
   public string Name;
   public string Description;
-  public User OwnerEmail;
+  public User Owner;
 
-  public Item(string name, string description, User owneremail)
+  public Item(string name, string description, User owner)
   {
     Name = name;
     Description = description;
-    OwnerEmail = owneremail;
+    Owner = owner;
   }
 
   public string ShowInfo()
   {
-    return "Item " + Name + " - " + Description + "(Owner:" + OwnerEmail + ")";
+    return "Item " + Name + " - " + Description + "(Owner:" + Owner.Email + ")";
   }
   
   //foreach (Item item in items)
   // {
-  //   Console.WriteLine(Item.ShowInfo());
+  //   Console.WriteLine(item.ShowInfo());
   // }
 }
