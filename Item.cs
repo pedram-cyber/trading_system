@@ -6,6 +6,8 @@ class Item
   public string Description;
   public User Owner;
 
+  //Item constructor to store instans variables for name description and owner
+
   public Item(string name, string description, User owner)
   {
     Name = name;
@@ -18,8 +20,4 @@ class Item
     return "Item " + Name + " - " + Description + "(Owner:" + Owner.Email + ")";
   }
   
-  //foreach (Item item in items)
-  // {
-  //   Console.WriteLine(item.ShowInfo());
-  // }
 }

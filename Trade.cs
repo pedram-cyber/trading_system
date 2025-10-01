@@ -1,12 +1,17 @@
 namespace App;
 
+//Get id sender receiver status and Items 
+//get and set for tradestatus in order to be able to receive and handle the status
+
 class Trade
 {
-  public int Id;
-  public User Sender;
-  public User Receiver;
-  public TradeStatus Status;
-  public List<Item> Items;
+  public int Id { get; }
+  public User Sender { get; }
+  public User Receiver { get; }
+  public TradeStatus Status { get; set; }
+  public List<Item> Items { get; }
+
+  //constructor for trade that stores instans variabels for id sender, receiver and list items
 
   public Trade(int id, User sender, User receiver, List<Item> items)
   {
