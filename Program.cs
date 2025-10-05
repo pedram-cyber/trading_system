@@ -9,21 +9,25 @@ bool running = true;
 
 while (running)
 {
+  //Clearing the console to not show previous codes.
   Console.Clear();
 
+  //The login section to the system when you register your username and password and exit the program.
+  //At the start of the program, it is assumed that the activeuser does not yet exist.
   if (activeUser == null)
   {
     Console.WriteLine("1.Register");
     Console.WriteLine("2.Login");
-    Console.WriteLine("3.Exit");
+    Console.WriteLine("0.Exit");
     Console.WriteLine(" ");
 
+    //Selecting the option the user wants to execute switch commands By typing the desired number
     string choice = Console.ReadLine();
 
     switch (choice)
     {
       case "1":
-       
+
         Console.WriteLine("Email: ");
         string email = Console.ReadLine();
         Console.WriteLine("Password: ");
@@ -43,6 +47,12 @@ while (running)
         Console.WriteLine("Password: ");
         password = Console.ReadLine();
 
+        /*
+        - Loop through all registered users
+        - For each user, call TryLogin() to check if email and password match
+        - If a match is found, set that user as activeUser
+        */
+
         bool loggedIn = false;
         foreach (User user in users)
         {
@@ -56,6 +66,11 @@ while (running)
           }
         }
 
+        /*
+        - If no matching user was found, show error message
+        - The user stays on the login menu
+        */
+
         if (!loggedIn)
         {
           Console.WriteLine("Invalid credentials.");
@@ -65,7 +80,7 @@ while (running)
         Console.ReadLine();
         break;
 
-      case "3":
+      case "0":
 
         running = false;
 
@@ -83,7 +98,7 @@ while (running)
   }
   else
   {
-    Console.WriteLine("Current Active Users: ");
+    Console.WriteLine("Current Users: ");
     foreach (User user in users)
     {
       Console.WriteLine(user.ShowInfo());
@@ -98,14 +113,14 @@ while (running)
     Console.WriteLine("5.Accept Trade");
     Console.WriteLine("6.Deny Trade");
     Console.WriteLine("7.Logout");
-    Console.WriteLine("8.Exit");
+    Console.WriteLine("0.Exit");
     Console.WriteLine(" ");
 
     string choice = Console.ReadLine();
 
     switch (choice)
     {
-      case"1": //Add Item
+      case "1": //Add Item
 
         Console.WriteLine("Item name: ");
         string name = Console.ReadLine();
@@ -120,7 +135,7 @@ while (running)
         break;
 
       case "2": //Browes Items
-      
+
         Console.WriteLine("...Items...");
         foreach (Item item in items)
         {
@@ -133,10 +148,9 @@ while (running)
 
       /*
       - case3 handles trade request from all activeusers 
-      - 
       */
 
-      case "3":
+      case "3": //Request Trade
 
         Console.Write("Receiver email: ");
         string recv = Console.ReadLine();
@@ -148,7 +162,7 @@ while (running)
         {
           Console.WriteLine("User not found.");
         }
-        
+
         /*
         - checks the whole list of items, finds all items, sends the item to activeuser, activeuser captures item
         - check the whole list of items, finds all items, send the reciever items to active user for trade choices
@@ -176,10 +190,16 @@ while (running)
               Console.WriteLine((i + 1) + ". " + myItems[i].ShowInfo());
 
             }
-            
 
+            //Changing Parse to TryParse to avoid crashing the program when entering letters instead of the desired number
             Console.Write("Choose number of object you want to trade: ");
-            int myChoice = int.Parse(Console.ReadLine()) - 1;
+            int myChoice;
+            if (!int.TryParse(Console.ReadLine(), out myChoice))
+            {
+              Console.WriteLine("Invalid number.");
+              break;
+            }
+            myChoice = myChoice - 1;
 
             Console.WriteLine(receiver.Email + " " + "object:");
             for (int i = 0; i < receiverItems.Count; i++)
@@ -187,9 +207,16 @@ while (running)
               Console.WriteLine((i + 1) + ". " + receiverItems[i].ShowInfo());
             }
 
+            //Changing Parse to TryParse to avoid crashing the program when entering letters instead of the desired number
             Console.Write("Choose number of object you want to trade: ");
-            int theirChoice = int.Parse(Console.ReadLine()) - 1;
-           
+            int theirChoice;
+            if (!int.TryParse(Console.ReadLine(), out theirChoice))
+            {
+              Console.WriteLine("Invalid number.");
+              break;
+            }
+            theirChoice = theirChoice - 1;
+
             /*
             - checks if a choice is made from active user list 
             - my items must always be greater than my choice, for a choice to be made
@@ -226,6 +253,12 @@ while (running)
           Console.WriteLine(trade.ShowInfo());
         }
 
+        //When there is no trade demand
+        if (trades.Count == 0)
+        {
+          Console.WriteLine("No trades yet.");
+        }
+
         Console.WriteLine("Press ENTER to continue...");
         Console.ReadLine();
         break;
@@ -240,7 +273,7 @@ while (running)
       - if trade already handled or is none existing, trade will fail 
       */
 
-      case "5":
+      case "5": //Accept Trade
 
         Console.Write("Enter Trade Id to accept: ");
         int accId;
@@ -300,7 +333,7 @@ while (running)
         Console.ReadLine();
         break;
 
-      // logout command for active users
+      // logout command for activeusers
 
       case "7": //Logout
 
@@ -312,7 +345,7 @@ while (running)
         Console.ReadLine();
         break;
 
-      case "8": //Exit
+      case "0": //Exit
 
         running = false;
 
